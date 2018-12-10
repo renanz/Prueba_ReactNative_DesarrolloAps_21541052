@@ -23,9 +23,9 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={this.row}>
+        <View style={styles.row}>
           <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            style={styles.textInput}
             editable = {true}
             onChangeText={(text) => this.setState({
               textList: this.state.textList,
@@ -34,7 +34,7 @@ export default class App extends React.Component {
             placeholder='Write a Todo'
             value={this.state.label}
           />
-          <Button title="+" onPress={this.onPress}/>
+          <Button style={style.bt} title="+" onPress={this.onPress}/>
         </View>
         {this.state.textList.map(data=> (
           <Text>{data}</Text>
@@ -49,10 +49,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 40
   },
   row: {
-    flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
+    width: 150
   },
+  textInput: {
+    height: 40,
+    borderColor: 'gray', 
+    borderWidth: 1,
+    width: 100
+  },
+  bt: {
+    width: 50
+  }
 });
