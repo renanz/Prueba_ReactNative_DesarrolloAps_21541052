@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Dimensions } from 'react-native';
+
+var { height, width } = Dimensions.get('window');
 
 export default class App extends React.Component {
   constructor(props) {
@@ -13,7 +15,8 @@ export default class App extends React.Component {
     for (let index = 0; index < tempList.length; index += 1) {
       temp.push(tempList[index]);
     }
-    temp.push(this.state.label);
+    if(this.state.label)
+      temp.push(this.state.label);
     this.setState({
         textList: temp,
         label: ''
@@ -34,11 +37,14 @@ export default class App extends React.Component {
             placeholder='Write a Todo'
             value={this.state.label}
           />
-          <Button style={style.bt} title="+" onPress={this.onPress}/>
+          <Button style={styles.bt} title="+" onPress={this.onPress}/>
         </View>
-        {this.state.textList.map(data=> (
-          <Text>{data}</Text>
-        ))}
+        
+        {this.state.textList.map((data, key)=> (
+            <View key={key} style={styles.withBottomBorder}>
+              <Text >{data}</Text>
+            </View>
+          ))}
       </View>
     );
   }
@@ -53,15 +59,21 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    width: 150
   },
   textInput: {
+    flex: 1,
     height: 40,
     borderColor: 'gray', 
     borderWidth: 1,
-    width: 100
+    width: 0.4 * width,
+    marginLeft: 0.2
   },
   bt: {
-    width: 50
+    flex: 1,
+    width: 0.6 * width
+  },
+  withBottomBorder: {
+    borderBottomColor: '#bbb',
+    borderBottomWidth: 2,
   }
 });
